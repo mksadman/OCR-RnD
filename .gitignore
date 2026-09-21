@@ -10,3 +10,5 @@ data.xlsx
 ~$data.xlsx
 .env
 *\_pycache__/  
+.vscode/
+results/*
