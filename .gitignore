@@ -1,5 +1,10 @@
 \.venv
 \.venv-paddle
+\.venv-easyocr
 \images
 \.ipynb_checkpoints
 tesserocr-2.7.0-cp312-cp312-win_amd64.whl
+\paddle_out
+data.csv
+data.xlsx
+~$data.xlsx
