@@ -417,7 +417,12 @@ def _write_csv(path, rows, columns):
         w.writerows(rows)
 
 
-def run_worker(engine_name, load_fn, ocr_fn, version_fn=None):
+def run_worker(engine_name, load_fn, ocr_fn, version_fn=None, unsupported=()):
+    """
+    unsupported: field keys this engine has no model for (e.g. Bangla for
+    PaddleOCR). Recorded in the meta JSON so the notebook can report them as
+    "not supported" instead of counting them as wrong answers.
+    """
     # Windows consoles default to a code page that cannot print Bangla.
     try:
         sys.stdout.reconfigure(encoding="utf-8")
@@ -440,6 +445,7 @@ def run_worker(engine_name, load_fn, ocr_fn, version_fn=None):
         "platform": f"{platform.system()} {platform.release()}",
         "cpu": platform.processor(),
         "load_seconds": round(load_seconds, 3),
+        "unsupported_fields": list(unsupported),
         "threads_env": {k: os.environ.get(k, "") for k in
                         ("OMP_NUM_THREADS", "OMP_THREAD_LIMIT", "MKL_NUM_THREADS")},
     }
